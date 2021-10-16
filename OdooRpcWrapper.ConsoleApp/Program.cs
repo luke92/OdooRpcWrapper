@@ -13,7 +13,8 @@ namespace OdooRpcWrapper.ConsoleApp
             var credentials = GetCredentials();
             var api = Connect(credentials);
             var invoiceModel = GetModel(api, "account.move", new List<string>{ "display_name" });
-            Print(invoiceModel);            
+            Print(invoiceModel);
+            Console.ReadKey();
         }
 
         private static OdooAPI Connect(OdooConnectionCredentials credentials)
