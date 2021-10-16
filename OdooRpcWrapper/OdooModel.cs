@@ -21,18 +21,18 @@ namespace OdooRpcWrapper
 
         public List<OdooRecord> Search(object[] filter)
         {
-            List<OdooRecord> records = new List<OdooRecord>();
+            var records = new List<OdooRecord>();
 
-            int[] ids = _api.Search(_modelName, filter);
-            object[] result = _api.Read(_modelName, ids, _fields.ToArray());
+            var ids = _api.Search(_modelName, filter);
+            var result = _api.Read(_modelName, ids, _fields.ToArray());
 
             foreach(object entry in result)
             {
-                XmlRpcStruct vals = (XmlRpcStruct)entry;
+               var vals = (XmlRpcStruct)entry;
 
                 // Get ID
-                int id = (int) vals["id"];
-                OdooRecord record = new OdooRecord(_api, _modelName, id);
+                var id = (int) vals["id"];
+                var record = new OdooRecord(_api, _modelName, id);
 
                 // Get other values
                 foreach(string field in _fields)
@@ -65,9 +65,9 @@ namespace OdooRpcWrapper
 
         public void Remove(List<OdooRecord> records)
         {
-            int[] toRemove = records.Where(r => r.Id >= 0)
+            var toRemove = records.Where(r => r.Id >= 0)
                                     .Select(r => r.Id)
-                                    .ToList<Int32>()
+                                    .ToList()
                                     .ToArray();
 
             _api.Remove(_modelName, toRemove);                                  

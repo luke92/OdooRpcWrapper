@@ -1,7 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31605.320
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OdooRpcWrapper", "OdooRpcWrapper\OdooRpcWrapper.csproj", "{24308204-7E4E-4521-8E73-D6785073462B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OdooRpcWrapper.ConsoleApp", "OdooRpcWrapper.ConsoleApp\OdooRpcWrapper.ConsoleApp.csproj", "{337E92AB-B8E7-477B-9C87-14C360F9EA4A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -13,8 +17,15 @@ Global
 		{24308204-7E4E-4521-8E73-D6785073462B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{24308204-7E4E-4521-8E73-D6785073462B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{24308204-7E4E-4521-8E73-D6785073462B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{337E92AB-B8E7-477B-9C87-14C360F9EA4A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{337E92AB-B8E7-477B-9C87-14C360F9EA4A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{337E92AB-B8E7-477B-9C87-14C360F9EA4A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{337E92AB-B8E7-477B-9C87-14C360F9EA4A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {F1301F03-97D4-40A6-8603-824171FE7EED}
 	EndGlobalSection
 EndGlobal
