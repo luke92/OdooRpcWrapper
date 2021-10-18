@@ -13,9 +13,20 @@ namespace OdooRpcWrapper.ConsoleApp
         {
             var credentials = GetCredentials();
             var api = Connect(credentials);
-            //ODOO 14 Invoices
-            var invoiceModel = GetModel(api, "account.move", new List<string>{ "display_name" });
-            Print(invoiceModel);
+            //ODOO v14 Invoices
+
+            //Invoices
+            Console.WriteLine("Invoices");
+            var invoiceFields = new List<string> { "display_name" };
+            var invoiceModel = GetModel(api, "account.move", invoiceFields);
+            Print(invoiceModel, invoiceFields);
+
+            //Customers
+            Console.WriteLine("Customers");
+            var customerFields = new List<string> { "vat" };
+            var customerModel = GetModel(api, "res.partner", customerFields);
+            Print(customerModel, customerFields);
+
             Console.ReadKey();
         }
 
@@ -49,13 +60,18 @@ namespace OdooRpcWrapper.ConsoleApp
             return modelOdoo;
         }
 
-        private static void Print(OdooModel model)
+        private static void Print(OdooModel model, List<string> fields, object[] filter = null)
         {
-            var filter = new object[0];
+            if(filter == null)
+                filter = new object[0];
+
             var records = model.Search(filter);
             foreach(var record in records)
             {
-                Console.WriteLine(record.GetValue("display_name"));
+                foreach(var field in fields)
+                {
+                    Console.WriteLine(record.GetValue(field));
+                }                
             }
         }
     }

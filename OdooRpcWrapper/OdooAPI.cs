@@ -50,6 +50,9 @@ namespace OdooRpcWrapper
             _objectRpc = XmlRpcProxyGen.Create<IOdooObjectRpc>();
             _objectRpc.Url = _credentials.ObjectUrl;
 
+            //For Fault Response Contains a String value where an Integer was Expected
+            _objectRpc.NonStandard = XmlRpcNonStandard.AllowStringFaultCode;
+
             return true;
         }
 
