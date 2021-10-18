@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,6 +13,7 @@ namespace OdooRpcWrapper.ConsoleApp
         {
             var credentials = GetCredentials();
             var api = Connect(credentials);
+            //ODOO 14 Invoices
             var invoiceModel = GetModel(api, "account.move", new List<string>{ "display_name" });
             Print(invoiceModel);
             Console.ReadKey();
@@ -24,12 +26,17 @@ namespace OdooRpcWrapper.ConsoleApp
 
         private static OdooConnectionCredentials GetCredentials()
         {
+            var host = ConfigurationManager.AppSettings["host"];
+            var database = ConfigurationManager.AppSettings["database"];
+            var user = ConfigurationManager.AppSettings["user"];
+            var pass = ConfigurationManager.AppSettings["pass"];
+
             var clientOdoo = new
             {
-                Host = "demo.odoo.com",
-                Database = "demo",
-                Username = "user@gmail.com",
-                Password = "password"
+                Host = host,
+                Database = database,
+                Username = user,
+                Password = pass
             };
 
            return new OdooConnectionCredentials(clientOdoo.Host, clientOdoo.Database, clientOdoo.Username, clientOdoo.Password);
@@ -44,7 +51,8 @@ namespace OdooRpcWrapper.ConsoleApp
 
         private static void Print(OdooModel model)
         {
-            var records = model.Search(null);
+            var filter = new object[0];
+            var records = model.Search(filter);
             foreach(var record in records)
             {
                 Console.WriteLine(record.GetValue("display_name"));
