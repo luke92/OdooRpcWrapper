@@ -28,8 +28,8 @@ namespace OdooRpcWrapper.ConsoleApp
         {
             var host = ConfigurationManager.AppSettings["host"];
             var database = ConfigurationManager.AppSettings["database"];
-            var user = ConfigurationManager.AppSettings["user"];
-            var pass = ConfigurationManager.AppSettings["pass"];
+            var user = ConfigurationManager.AppSettings["username"];
+            var pass = ConfigurationManager.AppSettings["password"];
 
             var clientOdoo = new
             {
