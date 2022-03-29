@@ -11,23 +11,51 @@ namespace OdooRpcWrapper.ConsoleApp
     {
         public static void Main(string[] args)
         {
-            var credentials = GetCredentials();
-            var api = Connect(credentials);
-            //ODOO v14 Invoices
+            try
+            {
+                var credentials = GetCredentials();
+                var api = Connect(credentials);
+                PrintInvoiceV12(api);                
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+            }
+            Console.WriteLine("Press any key");
+            Console.ReadKey();
+        }
 
+        private static void PrintInvoiceV12(OdooAPI api)
+        {
+            Console.WriteLine("Invoice ODOO V12");
+            var id = InputId("Enter Invoice Id");
+            Console.WriteLine("Invoice ID: " + id);
+
+            var fields = new List<string> { "name", "id" };
+            var model = GetModel(api, "account.invoice", fields);
+
+            //var filter = new object[] { new object[] { "id", id, "" } };
+
+            Print(model, fields, null);
+        }
+
+        private static void PrintInvoices(OdooAPI api)
+        {
             //Invoices
+            //ODOO v14 Invoices
             Console.WriteLine("Invoices");
             var invoiceFields = new List<string> { "display_name" };
             var invoiceModel = GetModel(api, "account.move", invoiceFields);
             Print(invoiceModel, invoiceFields);
+        }
 
+        private static void PrintCustomers(OdooAPI api)
+        {
             //Customers
             Console.WriteLine("Customers");
             var customerFields = new List<string> { "vat" };
             var customerModel = GetModel(api, "res.partner", customerFields);
             Print(customerModel, customerFields);
-
-            Console.ReadKey();
         }
 
         private static OdooAPI Connect(OdooConnectionCredentials credentials)
@@ -68,11 +96,25 @@ namespace OdooRpcWrapper.ConsoleApp
             var records = model.Search(filter);
             foreach(var record in records)
             {
+                Console.WriteLine("Id : " + record.Id);
                 foreach(var field in fields)
                 {
-                    Console.WriteLine(record.GetValue(field));
-                }                
+                    Console.WriteLine(field + " : " + record.GetValue(field));
+                }
+                Console.WriteLine();
             }
+        }
+
+        private static int InputId(string message)
+        {
+            var idString = "";
+            var id = 0;
+            do
+            {
+                Console.WriteLine(message);
+                idString = Console.ReadLine();
+            } while (!int.TryParse(idString, out id));
+            return id;
         }
     }
 }
